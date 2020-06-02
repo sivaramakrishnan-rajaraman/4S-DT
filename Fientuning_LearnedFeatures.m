@@ -72,8 +72,7 @@ opts = trainingOptions('sgdm',...
 % Sort Classes
 sortClasses(cm,["Covid_19","SARS","normal"])
 cmat=cm.NormalizedValues;
-cmat=confusionchart(cmat,classNames);
-          
+        
 [acc, sn, sp]= ConfusionMat_MultiClass (cmat,classNames);
 classification_Accuaracy    = acc;
 classification_sensitivity  = sn;
