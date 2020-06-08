@@ -15,8 +15,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input :
-%         Transformation knowledge from generic CXR
-%         new task Chest x-ray images
+%           CXR_PretrainedNetwork.mat  : Transformation knowledge from generic CXR
+%           new task from Chest x-ray dataset
 % Output:
 %         evaluation performance for DeTraC model
 %         classifier_Accuracy      (ACC)
@@ -61,7 +61,7 @@ opts = trainingOptions('sgdm',...
                     'CheckpointPath' ,'C:\.........\New folder');
 
 %% Load the self_Supervised ImageNet for transfer learning
-load('Learned_features.mat')
+load('CXR_PretrainedNetwork.mat')
 
 if isa(net,'SeriesNetwork')
     
