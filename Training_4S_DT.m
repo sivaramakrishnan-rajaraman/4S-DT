@@ -37,7 +37,7 @@ imdsTrainSet= imageDatastore(imdsTrainSet,'IncludeSubfolders',true,'FileExtensio
 imdsTestSet= 'E:\..................................';
 imdsTestSet= imageDatastore(imdsTestSet,'IncludeSubfolders',true,'FileExtensions','.png','LabelSource','foldernames','ReadFcn',@readAndPreprocessImage);
 
-numClasses = numel(categories(imdsTrainingSet.Labels));
+numClasses = numel(categories(imdsTrainSet.Labels));
 
 % Shuffle training and test images
 imdsTrainSet = shuffle(imdsTrainSet);
@@ -47,7 +47,7 @@ imdsTestSet = shuffle(imdsTestSet);
 % hyper parameters for training the network
 maxEpochs = 50;
 miniBatchSize = 256;
-numObservations = numel(trainingimages.Files);
+numObservations = numel(imdsTrainSet.Files);
 numIterationsPerEpoch = floor(numObservations / miniBatchSize);
 
 opts = trainingOptions('sgdm',...
@@ -66,12 +66,12 @@ load('Learned_features.mat')
 if isa(net,'SeriesNetwork')
     
     Layers=SeriesNet_newtask(net,numClasses);
-    [trainedNet,traininfo] = trainNetwork(imdsTrainingSet,Layers,opts);
+    [trainedNet,traininfo] = trainNetwork(imdsTrainSet,Layers,opts);
       
 elseif isa(net,'DAGNetwork')
 
     lgraph=DAGNet_newtask(net,numClasses);
-    [trainedNet,traininfo] = trainNetwork(imdsTrainingSet,lgraph,opts);
+    [trainedNet,traininfo] = trainNetwork(imdsTrainSet,lgraph,opts);
     
 end
 
