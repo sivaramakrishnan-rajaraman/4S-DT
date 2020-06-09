@@ -75,15 +75,12 @@ elseif isa(net,'DAGNetwork')
     
 end
 
-
 %% classify test images
-
 [predictedlabels,scores] = classify(trainedNet,imdsTestSet);  
                  
 %% compute the confusion matrix 
 [cmat,classNames] = confusionmat(imdsTestSet.Labels, predictedlabels); 
  cm = confusionchart(cmat,classNames);
-
 % Sort Classes
 sortClasses(cm,["Covid_19","SARS","normal"])
 cmat=cm.NormalizedValues;
